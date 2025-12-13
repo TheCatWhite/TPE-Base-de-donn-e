@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.gestionprojet.config.DatabaseConnection;
 import com.gestionprojet.dao.GradeDao;
+import com.gestionprojet.dao.StatutDao;
 import com.gestionprojet.models.GradeModel;
+import com.gestionprojet.models.StatutProjectModel;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -85,6 +88,22 @@ public class Main {
         }
 
         System.out.println("\n--- Fin des tests CRUD ---");
+
+
+        StatutDao statutDao = new StatutDao();
+
+        System.out.println("\n[1. Insertion d'un Statut]");
+        StatutProjectModel nouvstatut1 = new StatutProjectModel(0, "presque fini"); 
+        StatutProjectModel statutInsere = statutDao.Insert(nouvstatut1);
+
+        if (statutInsere != null) {
+            System.out.println("Insertion réussie. Statut : ID=" + statutInsere.getId_statut() + ", Libellé='" + statutInsere.getLibelle_statut() + "'");
+        } else {
+            System.out.println("Échec de l'insertion.");
+            return; 
+        }
+
+        int idstatutTest = statutInsere.getId_statut();
     }
 }
 
