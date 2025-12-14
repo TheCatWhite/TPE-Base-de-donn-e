@@ -158,15 +158,26 @@ public class Main {
         DeveloppeurDao developpeurDao = new DeveloppeurDao();
         DeveloppeurModel nouvdeveloppeur = new DeveloppeurModel(0, "Eric", "Kindy", "tikoenao@gmail.com", "Développeur web", new java.util.Date(), 3000, 2);
 
-        DeveloppeurModel developpeurInsere = developpeurDao.insert(nouvdeveloppeur);
+        /*DeveloppeurModel developpeurInsere = developpeurDao.insert(nouvdeveloppeur);
 
         if (developpeurInsere != null) {
             System.out.println("Insertion réussie. Developpeur : ID=" + developpeurInsere.getMatricule() + ", Nom='" + developpeurInsere.getNom() + "', Prénom='" + developpeurInsere.getPrenom() + "'");
         } else {
             System.out.println("Échec de l'insertion.");
             return;
-        }
+        }*/
 
+
+
+
+
+        System.err.println("Delete developpeur");
+        boolean estSupprimeDeveloppeur = developpeurDao.delete(1);
+        if (estSupprimeDeveloppeur) {
+            System.out.println("Suppression réussie pour l'ID : 1");
+        } else {
+            System.out.println("Échec de la suppression pour l'ID : 1");
+        }
 
         System.out.println("\n[2. Sélection de tous les Developpeurs]");
         List<DeveloppeurModel> tousLesDeveloppeurs = developpeurDao.selectAll();
@@ -179,6 +190,7 @@ public class Main {
                         + dev.getPrenom() + "'");
             }
         }
+
 
     }
 }

@@ -68,4 +68,20 @@ public class DeveloppeurDao {
         }
         return developpeurs;
     }
+
+    private static final String DELETE_DEVELOPPEUR = "DELETE FROM DEVELOPPEUR WHERE matricule = ?";
+    public boolean delete(int matricule) {
+        try (Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(DELETE_DEVELOPPEUR)) {
+
+            preparedStatement.setInt(1, matricule);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true; 
+    }
 }
