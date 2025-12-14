@@ -7,10 +7,12 @@ import com.gestionprojet.dao.ClientDao;
 import com.gestionprojet.dao.DeveloppeurDao;
 import com.gestionprojet.dao.GradeDao;
 import com.gestionprojet.dao.StatutDao;
+import com.gestionprojet.dao.TechnologieDao;
 import com.gestionprojet.models.CLientModel;
 import com.gestionprojet.models.DeveloppeurModel;
 import com.gestionprojet.models.GradeModel;
 import com.gestionprojet.models.StatutProjectModel;
+import com.gestionprojet.models.TechnologieModel;
 
 public class Main {
     public static void main(String[] args) {
@@ -189,6 +191,29 @@ public class Main {
                 System.out.println(" -> ID=" + dev.getMatricule() + ", Nom='" + dev.getNom() + "', Prénom='"
                         + dev.getPrenom() + "'");
             }
+        }
+
+
+        TechnologieDao technologieDao = new TechnologieDao();
+        TechnologieModel nouvtechnologie = new TechnologieModel(0, "python", "Data Science");
+        technologieDao.InsertTechnologie(nouvtechnologie);
+
+
+        technologieDao.DeleteTechnologie(4);
+
+
+        System.out.println("\n[2. Sélection de toutes les Technologies]");
+        List<TechnologieModel> toutesLesTechnologies = technologieDao.selectAll();
+        if (toutesLesTechnologies.isEmpty()) {
+            System.out.println("Aucune technologie trouvée.");
+        } else {
+            System.out.println("Liste des Technologies (Total : " + toutesLesTechnologies.size() + ") :");
+            for (TechnologieModel tech : toutesLesTechnologies) {
+                System.out.println(
+                        " -> ID=" + tech.getId_technologie() + ", Nom='" + tech.getNom_technologie() + "', Catégorie='"
+                                + tech.getCategorie() + "'");
+            }
+
         }
 
 
