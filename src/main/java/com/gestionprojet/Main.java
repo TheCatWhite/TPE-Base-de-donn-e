@@ -3,8 +3,12 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.gestionprojet.config.DatabaseConnection;
+import com.gestionprojet.dao.ClientDao;
+import com.gestionprojet.dao.DeveloppeurDao;
 import com.gestionprojet.dao.GradeDao;
 import com.gestionprojet.dao.StatutDao;
+import com.gestionprojet.models.CLientModel;
+import com.gestionprojet.models.DeveloppeurModel;
 import com.gestionprojet.models.GradeModel;
 import com.gestionprojet.models.StatutProjectModel;
 
@@ -104,6 +108,78 @@ public class Main {
         }
 
         int idstatutTest = statutInsere.getId_statut();
+
+
+
+
+
+
+
+        /*Client */
+        ClientDao clientDao = new ClientDao();
+
+        System.out.println("\n[1. Insertion d'un Client]");
+        CLientModel nouvclient1 = new CLientModel(0, "Entreprise Test", "Adresse Test", "Secteur Test", "Contact Test");
+        CLientModel clientInsere = clientDao.insert(nouvclient1);
+
+        if (clientInsere != null) {
+            System.out.println("Insertion réussie. Client : ID=" + clientInsere.getCode_client() + ", Nom='" + clientInsere.getNom_entreprise() + "'");
+        } else {
+            System.out.println("Échec de l'insertion.");
+            return; 
+        }
+
+        int idClientTest = clientInsere.getCode_client();
+
+
+        System.out.println("\n[3. Suppression du Client de test]");
+        boolean estSupprimeClient = clientDao.delete(3);
+        if (estSupprimeClient) {
+            System.out.println("Suppression réussie pour l'ID : " + idClientTest);
+        } else {
+            System.out.println("Échec de la suppression pour l'ID : " + idClientTest);
+        }
+
+        System.out.println("\n[2. Sélection de tous les Clients]");
+        List<CLientModel> tousLesClients = clientDao.selectAll();
+        if (tousLesClients.isEmpty()) {
+            System.out.println("Aucun client trouvé.");
+        } else {
+            System.out.println("Liste des Clients (Total : " + tousLesClients.size() + ") :");
+            for (CLientModel client : tousLesClients) {
+                System.out.println(" -> ID=" + client.getCode_client() + ", Nom='" + client.getNom_entreprise() + "'");
+            }
+        }
+
+
+
+        System.out.println("Ajout developpeur");
+
+        DeveloppeurDao developpeurDao = new DeveloppeurDao();
+        DeveloppeurModel nouvdeveloppeur = new DeveloppeurModel(0, "Eric", "Kindy", "tikoenao@gmail.com", "Développeur web", new java.util.Date(), 3000, 2);
+
+        DeveloppeurModel developpeurInsere = developpeurDao.insert(nouvdeveloppeur);
+
+        if (developpeurInsere != null) {
+            System.out.println("Insertion réussie. Developpeur : ID=" + developpeurInsere.getMatricule() + ", Nom='" + developpeurInsere.getNom() + "', Prénom='" + developpeurInsere.getPrenom() + "'");
+        } else {
+            System.out.println("Échec de l'insertion.");
+            return;
+        }
+
+
+        System.out.println("\n[2. Sélection de tous les Developpeurs]");
+        List<DeveloppeurModel> tousLesDeveloppeurs = developpeurDao.selectAll();
+        if (tousLesDeveloppeurs.isEmpty()) {
+            System.out.println("Aucun développeur trouvé.");
+        } else {
+            System.out.println("Liste des Développeurs (Total : " + tousLesDeveloppeurs.size() + ") :");
+            for (DeveloppeurModel dev : tousLesDeveloppeurs) {
+                System.out.println(" -> ID=" + dev.getMatricule() + ", Nom='" + dev.getNom() + "', Prénom='"
+                        + dev.getPrenom() + "'");
+            }
+        }
+
     }
 }
 
